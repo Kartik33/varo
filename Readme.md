@@ -2,15 +2,15 @@ pre-requsites
 
     Java 11
     PostgresSQL 13.4
+    Spring-boot
 
 cd to target folder
 
-Exporting the environment varibales 
-    Run the following command in the terminal
-        export $(cat .env | xargs)
+To export the environment varibales run the following command in the terminal\
+&nbsp;&nbsp;   export $(cat .env | xargs)
 
-Run the app
-    java -jar target/vero-0.0.1-SNAPSHOT.jar
+Run the app\
+&nbsp;&nbsp;    java -jar target/vero-0.0.1-SNAPSHOT.jar
 
 
 APIs
