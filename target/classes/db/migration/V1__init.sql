@@ -27,3 +27,11 @@ CREATE TABLE IF NOT EXISTS address_junction (
 	  REFERENCES address(id) 
 );
 
+CREATE TABLE IF NOT EXISTS deleted_users (
+	id SERIAL,
+	f_name varchar(100) NOT NULL,
+	l_name varchar(100),
+	email varchar(100) NOT NULL UNIQUE,
+	PRIMARY KEY(id),
+    address varchar
+);

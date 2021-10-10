@@ -1,5 +1,6 @@
 package com.example.vero.service;
 
+import com.example.vero.entity.Address;
 import com.example.vero.entity.AddressJunction;
 import com.example.vero.repository.AddressJunctionRepository;
 
@@ -14,8 +15,11 @@ public class AddressJunctionServiceImpl implements AddressJunctionService{
 
 
     @Override
-    public AddressJunction insertRecord(AddressJunction addressJ) {
-        AddressJunction createdAddressJ = addressJunctionRepository.save(addressJ);
+    public AddressJunction insertRecord(Address createdAddress, Long id) {
+        AddressJunction createdAddressJunction = new AddressJunction();
+        createdAddressJunction.setAddressId(createdAddress.getAddressId());
+        createdAddressJunction.setUserId(id);
+        AddressJunction createdAddressJ = addressJunctionRepository.save(createdAddressJunction);
         return createdAddressJ;
     }
     

@@ -5,7 +5,6 @@ import java.util.List;
 import javax.validation.Valid;
 
 import com.example.vero.entity.Address;
-import com.example.vero.entity.AddressJunction;
 import com.example.vero.entity.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,19 +19,24 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.vero.service.AddressJunctionService;
 import com.example.vero.service.AddressService;
+import com.example.vero.service.DeletedUserService;
 import com.example.vero.service.UserService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
 public class UserController {
     private UserService userService;
     private AddressService addressService;
     private AddressJunctionService addressJunctionService;
-
+    private DeletedUserService deletedUserService;
+    private ObjectMapper mapper;
     @Autowired
-    public UserController(UserService userService, AddressService addressService, AddressJunctionService addressJunctionService) {
+    public UserController(UserService userService, AddressService addressService, AddressJunctionService addressJunctionService, DeletedUserService deletedUserService, ObjectMapper objectMapper) {
+        this.deletedUserService = deletedUserService;
         this.userService = userService;
         this.addressService = addressService;
         this.addressJunctionService = addressJunctionService;
+        this.mapper = objectMapper;
     }
 
     @RequestMapping(value = "/users", method = RequestMethod.GET)
@@ -85,14 +89,19 @@ public class UserController {
     public ResponseEntity<Address> updateUserAddressById(@Valid @RequestBody Address address, @PathVariable Long id){
         try {
             Address createdAddress = addressService.insertAddress(address);
-            AddressJunction createdAddressJunction = new AddressJunction();
-            createdAddressJunction.setAddressId(createdAddress.getAddressId());
-            createdAddressJunction.setUserId(id);
-            addressJunctionService.insertRecord(createdAddressJunction);
+            addressJunctionService.insertRecord(createdAddress,id);
             return new ResponseEntity<Address>(createdAddress,HttpStatus.CREATED);
          } catch (Exception e) {
              throw e;
          }
+    }
+
+    @RequestMapping(value = "/user/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Long> deleteUserById(@PathVariable Long id) throws Exception{
+        User user = userService.findUserByUserId(id);
+        userService.deleteUserByUserId(id);
+        deletedUserService.insertUser(user,mapper.writeValueAsString(user.getAddresses()));
+        return new ResponseEntity<Long>(1L,HttpStatus.OK);
     }
 
 }
