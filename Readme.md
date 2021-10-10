@@ -51,3 +51,8 @@ APIs
         Success code : 201
         -H 'Content-Type: application/json'
         -d {"linea":"","lineb":"","city":"","state":"" }
+        
+   /user/{id}
+        Method : DELETE
+        Success code : 200
+        
