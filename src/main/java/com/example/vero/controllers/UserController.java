@@ -98,7 +98,11 @@ public class UserController {
 
     @RequestMapping(value = "/user/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Long> deleteUserById(@PathVariable Long id) throws Exception{
+        
         User user = userService.findUserByUserId(id);
+        if (user == null) {
+            return new ResponseEntity<Long>(-1L,HttpStatus.NOT_FOUND);
+        }
         userService.deleteUserByUserId(id);
         deletedUserService.insertUser(user,mapper.writeValueAsString(user.getAddresses()));
         return new ResponseEntity<Long>(1L,HttpStatus.OK);
