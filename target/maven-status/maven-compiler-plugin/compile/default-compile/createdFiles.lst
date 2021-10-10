@@ -1,0 +1,14 @@
+com/example/vero/service/AddressJunctionService.class
+com/example/vero/entity/User.class
+com/example/vero/service/AddressJunctionServiceImpl.class
+com/example/vero/repository/AddressRepository.class
+com/example/vero/VeroApplication.class
+com/example/vero/service/AddressService.class
+com/example/vero/repository/UserRepository.class
+com/example/vero/controllers/UserController.class
+com/example/vero/repository/AddressJunctionRepository.class
+com/example/vero/entity/Address.class
+com/example/vero/service/UserServiceImpl.class
+com/example/vero/service/AddressServiceImpl.class
+com/example/vero/service/UserService.class
+com/example/vero/entity/AddressJunction.class
