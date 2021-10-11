@@ -31,7 +31,11 @@ public class UserController {
     private DeletedUserService deletedUserService;
     private ObjectMapper mapper;
     @Autowired
-    public UserController(UserService userService, AddressService addressService, AddressJunctionService addressJunctionService, DeletedUserService deletedUserService, ObjectMapper objectMapper) {
+    public UserController(UserService userService, 
+                          AddressService addressService, 
+                          AddressJunctionService addressJunctionService, 
+                          DeletedUserService deletedUserService, 
+                          ObjectMapper objectMapper) {
         this.deletedUserService = deletedUserService;
         this.userService = userService;
         this.addressService = addressService;
@@ -86,7 +90,10 @@ public class UserController {
     }
 
     @RequestMapping(value = "/user/{id}/address", method = RequestMethod.POST)
-    public ResponseEntity<Address> updateUserAddressById(@Valid @RequestBody Address address, @PathVariable Long id){
+    public ResponseEntity<Address> updateUserAddressById(
+                        @Valid @RequestBody Address address, 
+                        @PathVariable Long id)
+    {
         try {
             Address createdAddress = addressService.insertAddress(address);
             addressJunctionService.insertRecord(createdAddress,id);
