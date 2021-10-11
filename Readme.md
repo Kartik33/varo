@@ -4,8 +4,6 @@ pre-requsites
     PostgresSQL 13.4
     Spring-boot
 
-cd to target folder
-
 To export the environment varibales run the following command in the terminal\
 &nbsp;&nbsp;   export $(cat .env | xargs)
 
